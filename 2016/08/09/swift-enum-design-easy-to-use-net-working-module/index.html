@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="enum 是 Swift 中我非常喜欢的数据类型，通过枚举参数绑定不同的值，可以封装出一个能够任意组装的网络请求模块  绑定值不同种类的类型所做的操作不同，可以组合成各种各样的操作，并很方便的分类，例如这样:  12345678910111213enum Handler &amp;#123;    case empty    case sum(a: Int, b:Int)    case alert(m">
+<meta name="keywords" content="Swift,enum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Swift 中用 enum 来设计一个好用的网络请求模块">
+<meta property="og:url" content="http://yoursite.com/2016/08/09/swift-enum-design-easy-to-use-net-working-module/index.html">
+<meta property="og:site_name" content="heronlyj">
+<meta property="og:description" content="enum 是 Swift 中我非常喜欢的数据类型，通过枚举参数绑定不同的值，可以封装出一个能够任意组装的网络请求模块  绑定值不同种类的类型所做的操作不同，可以组合成各种各样的操作，并很方便的分类，例如这样:  12345678910111213enum Handler &amp;#123;    case empty    case sum(a: Int, b:Int)    case alert(m">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2016-08-22T13:41:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 Swift 中用 enum 来设计一个好用的网络请求模块">
+<meta name="twitter:description" content="enum 是 Swift 中我非常喜欢的数据类型，通过枚举参数绑定不同的值，可以封装出一个能够任意组装的网络请求模块  绑定值不同种类的类型所做的操作不同，可以组合成各种各样的操作，并很方便的分类，例如这样:  12345678910111213enum Handler &amp;#123;    case empty    case sum(a: Int, b:Int)    case alert(m">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/09/swift-enum-design-easy-to-use-net-working-module/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>在 Swift 中用 enum 来设计一个好用的网络请求模块 | heronlyj</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">heronlyj</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/09/swift-enum-design-easy-to-use-net-working-module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eugene Li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="heronlyj">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">在 Swift 中用 enum 来设计一个好用的网络请求模块
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-08-09 18:53:54" itemprop="dateCreated datePublished" datetime="2016-08-09T18:53:54+08:00">2016-08-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2016-08-22 21:41:30" itemprop="dateModified" datetime="2016-08-22T21:41:30+08:00">2016-08-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>enum 是 Swift 中我非常喜欢的数据类型，通过枚举参数绑定不同的值，可以封装出一个能够任意组装的网络请求模块</p>
+</blockquote>
+<h3 id="绑定值"><a href="#绑定值" class="headerlink" title="绑定值"></a>绑定值</h3><p>不同种类的类型所做的操作不同，可以组合成各种各样的操作，并很方便的分类，例如这样: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">enum Handler &#123;</span><br><span class="line">    case empty</span><br><span class="line">    case sum(a: Int, b:Int)</span><br><span class="line">    case alert(message: String?) // 可选值</span><br><span class="line">    case completed(action: (result: AnyObject?) -&gt; Void) // 闭包也是可以的</span><br><span class="line">    </span><br><span class="line">    var needMainThread: Bool &#123;</span><br><span class="line">        switch self &#123;</span><br><span class="line">        case .completed, .alert: return true</span><br><span class="line">        default: return false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a> 
+<h3 id="与服务器的接口"><a href="#与服务器的接口" class="headerlink" title="与服务器的接口"></a>与服务器的接口</h3><p>用 enum 来设计与服务器的接口再合适不过了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">enum API &#123;</span><br><span class="line">    case login(phone: String, password: String)</span><br><span class="line">    case changePassword(smsCode: String, newPwd: String)</span><br><span class="line">    case editUserInfo(name: String, age: Int, email: String?)</span><br><span class="line">    case freshToken</span><br><span class="line">    </span><br><span class="line">    var name: String &#123;</span><br><span class="line">        switch self &#123;</span><br><span class="line">        case .login: return &quot;login&quot;</span><br><span class="line">        case .changePassword: return &quot;changePassword&quot;</span><br><span class="line">        case .editUserInfo: return &quot;editUserInfo&quot;</span><br><span class="line">        case .freshToken: return &quot;freshToken&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var parame: [String: AnyObject] &#123;</span><br><span class="line">        switch self &#123;</span><br><span class="line">        case .login(let phone, let password):</span><br><span class="line">            return [&quot;phone&quot;: phone, &quot;password&quot;: password]</span><br><span class="line">            </span><br><span class="line">        case .changePassword(let smsCode, let newPwd):</span><br><span class="line">            return [&quot;smsCode&quot;: smsCode, &quot;newPwd&quot;: newPwd]</span><br><span class="line">            </span><br><span class="line">        case .editUserInfo(let name, let age, let email):</span><br><span class="line">            var parames: [String: AnyObject] = [&quot;name&quot;: name, &quot;age&quot;: age]</span><br><span class="line">            if let email = email &#123;</span><br><span class="line">                parames[&quot;email&quot;] = email</span><br><span class="line">            &#125;</span><br><span class="line">            return parames</span><br><span class="line">            </span><br><span class="line">        case .freshToken: return [:]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分情况处理响应"><a href="#分情况处理响应" class="headerlink" title="分情况处理响应"></a>分情况处理响应</h3><p>为了方便的处理请求响应，可以把成功与失败与分开处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">enum SuccessHandler &#123;</span><br><span class="line">    case empty</span><br><span class="line">    case custom(result: (response: AnyObject?) -&gt; Void)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum FailureHandler &#123;</span><br><span class="line">    case empty</span><br><span class="line">    case alert</span><br><span class="line">    case custom(result: (error: NSError) -&gt; Void)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="封装网络请求"><a href="#封装网络请求" class="headerlink" title="封装网络请求"></a>封装网络请求</h3><p>将请求类型也用一个 enum 来分类，以后将 Alamofire 更换为其他的库，只要这里更改一下就好了，避免影响过大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">struct Networking &#123;</span><br><span class="line"></span><br><span class="line">  // 其他类型不再赘叙</span><br><span class="line">    enum Method &#123;</span><br><span class="line">        case GET, POST</span><br><span class="line">        </span><br><span class="line">        var toAlamofire: Alamofire.Method &#123;</span><br><span class="line">            switch self &#123;</span><br><span class="line">            case .GET       : return Alamofire.Method.GET</span><br><span class="line">            case .POST      : return Alamofire.Method.POST</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 增加默认值, 在调用某些不需要回调的请求时非常简短</span><br><span class="line">    static func request(</span><br><span class="line">        method method  : Method = .POST,</span><br><span class="line">               api     : API,</span><br><span class="line">               success : SuccessHandler = .empty,</span><br><span class="line">               failure : FailureHandler = .empty) &#123;</span><br><span class="line">        </span><br><span class="line">        let alamofireRequest = Alamofire.request(</span><br><span class="line">            method.toAlamofire, </span><br><span class="line">            ServerIP + api.name,</span><br><span class="line">            parameters: api.parame)</span><br><span class="line">        </span><br><span class="line">        alamofireRequest.responseJSON</span><br><span class="line">            &#123; (response: Response&lt;AnyObject, NSError&gt;) -&gt; Void in</span><br><span class="line">                // 针对不同的返回状态来处理</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>这样的话一个网络请求语句写起来很简单了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 最简单的，不需要回调</span><br><span class="line">Networking.request(api: .freshToken)</span><br><span class="line"></span><br><span class="line">// 需要返回值的请求， 失败弹出提示框</span><br><span class="line">Networking.request(</span><br><span class="line">    api     : .editUserInfo(name: &quot;xxxx&quot;, age: 24, email: nil),</span><br><span class="line">    success : .custom(result: &#123; (response: AnyObject?) in</span><br><span class="line">        // 处理成功的响应</span><br><span class="line">    &#125;),</span><br><span class="line">    failure : .alert)</span><br></pre></td></tr></table></figure>
+<h3 id="增加响应类型"><a href="#增加响应类型" class="headerlink" title="增加响应类型"></a>增加响应类型</h3><p>不同的请求响应需要不同的处理方式，那么就根据 enum 来分类处理，就算后期要用其他的处理类型，也只要在成功或者失败的 handler 中增加一种类型就行了，完全不影响老代码。</p>
+<p>例如增加一个类似 Alamofire 的 Result :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">enum Result&lt;Value&gt; &#123;</span><br><span class="line">    case Success(Value)</span><br><span class="line">    case Failure(NSError)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那我也想把服务器响应数据按照 Result 泛型的方式封装怎么办, 可以这样:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 通用泛型 json 转 model</span><br><span class="line">protocol JsonObj &#123;</span><br><span class="line">    init(data: AnyObject?)</span><br><span class="line">    static func factory(data: AnyObject?) -&gt; [Self]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Networking 增加下面的方法</span><br><span class="line">static func request&lt;T: JsonObj&gt;(</span><br><span class="line">    method method   : Method = .POST,</span><br><span class="line">           api      : API,</span><br><span class="line">           completed: ((result: Result&lt;T&gt;) -&gt; Void)) &#123;</span><br><span class="line">    </span><br><span class="line">    request(</span><br><span class="line">        method : method,</span><br><span class="line">        api    : api,</span><br><span class="line">        success: .custom(result: &#123; (response: AnyObject?) -&gt; Void in</span><br><span class="line">            completed(result: Result.Success(T(data: response)))</span><br><span class="line">        &#125;),</span><br><span class="line">        faield: .custom(result: &#123; (error: NSError) in</span><br><span class="line">            completed(result: Result.Failure(error))</span><br><span class="line">        &#125;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对那些通用的响应处理，如上文提到的 <code>.empty</code> ,  <code>.alert</code> 则可以通过一个默认的处理方法来处理，避免大量的重复代码。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Swift 中的 enum 灵活性很强, 很方便分类处理多种情况，上面的 API 设计也有比较啰嗦的感觉，但是 API 一般变动不大，有些请求会在很多地方使用，用 enum 来绑定参数，就不用再写烦人的字符串属性名了。通过增加网络请求方法中的 SuccessHandler 与 FailureHandler 类型，就可以组装出多种响应处理方式，总之感觉很方便。 </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/enum/" rel="tag"># enum</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/03/resolve-hexo-DTraceProviderBindings-MODULE-NOT-FOUND/" rel="next" title="修复 hexo DTraceProviderBindings not found">
+                <i class="fa fa-chevron-left"></i> 修复 hexo DTraceProviderBindings not found
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/22/simple-kvo-tool-in-swift/" rel="prev" title="Swift 中一个简单的 KVO 小工具">
+                Swift 中一个简单的 KVO 小工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Eugene Li" />
+            
+              <p class="site-author-name" itemprop="name">Eugene Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/heronlyj" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定值"><span class="nav-number">1.</span> <span class="nav-text">绑定值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与服务器的接口"><span class="nav-number">2.</span> <span class="nav-text">与服务器的接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分情况处理响应"><span class="nav-number">3.</span> <span class="nav-text">分情况处理响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装网络请求"><span class="nav-number">4.</span> <span class="nav-text">封装网络请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">5.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加响应类型"><span class="nav-number">6.</span> <span class="nav-text">增加响应类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heronlyj"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Eugene Li</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.2.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
