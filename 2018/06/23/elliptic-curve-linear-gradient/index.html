@@ -108,25 +108,30 @@
 
 
 
-  <meta name="description" content="有这么一段 C++ 代码: 123456int main(int argc, const char * argv[]) &amp;#123;    vector&amp;lt;string&amp;gt; s&amp;#123;&quot;aa&quot;, &quot;bb&quot;&amp;#125;;    vector&amp;lt;string&amp;gt; v&amp;#123;&quot;AA&quot;, &quot;BB&quot;&amp;#125;;    cout &amp;lt;&amp;lt; *s.end() &amp;lt;&amp;lt;">
-<meta name="keywords" content="C++">
+  <meta name="description" content="有这么个需求，一张图片，上面需要显示文字，可是图片的颜色有可能是亮色，文字又是白色的话，会看不清楚内容。那么常见的解决方案就是用一个透明的黑色背景做底色，既能显示图片，又能衬托文字。 例如中间这张没加载出来的图: 新浪微博截图  这样的效果代码这么写就可以实现了 12345&amp;lt;LinearGradient colors=&amp;#123;[	&apos;rgba(0,0,0,0.4)&apos;,	&apos;rgba(0,0,">
+<meta name="keywords" content="Javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="初学 C++ 发现一个奇怪的问题">
-<meta property="og:url" content="http://yoursite.com/2016/12/04/C++ 的一个奇怪问题/index.html">
+<meta property="og:title" content="椭圆方程实现渐进色平滑过渡">
+<meta property="og:url" content="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/index.html">
 <meta property="og:site_name" content="heronlyj">
-<meta property="og:description" content="有这么一段 C++ 代码: 123456int main(int argc, const char * argv[]) &amp;#123;    vector&amp;lt;string&amp;gt; s&amp;#123;&quot;aa&quot;, &quot;bb&quot;&amp;#125;;    vector&amp;lt;string&amp;gt; v&amp;#123;&quot;AA&quot;, &quot;BB&quot;&amp;#125;;    cout &amp;lt;&amp;lt; *s.end() &amp;lt;&amp;lt;">
+<meta property="og:description" content="有这么个需求，一张图片，上面需要显示文字，可是图片的颜色有可能是亮色，文字又是白色的话，会看不清楚内容。那么常见的解决方案就是用一个透明的黑色背景做底色，既能显示图片，又能衬托文字。 例如中间这张没加载出来的图: 新浪微博截图  这样的效果代码这么写就可以实现了 12345&amp;lt;LinearGradient colors=&amp;#123;[	&apos;rgba(0,0,0,0.4)&apos;,	&apos;rgba(0,0,">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2016-12-04T06:40:46.000Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/media/15296776808766/15296788901790.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/media/15296776808766/22961529681017_.pic.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/media/15296776808766/23181529681603_.pic.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/media/15296776808766/15296849246909.jpg">
+<meta property="og:updated_time" content="2018-06-22T16:35:14.587Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="初学 C++ 发现一个奇怪的问题">
-<meta name="twitter:description" content="有这么一段 C++ 代码: 123456int main(int argc, const char * argv[]) &amp;#123;    vector&amp;lt;string&amp;gt; s&amp;#123;&quot;aa&quot;, &quot;bb&quot;&amp;#125;;    vector&amp;lt;string&amp;gt; v&amp;#123;&quot;AA&quot;, &quot;BB&quot;&amp;#125;;    cout &amp;lt;&amp;lt; *s.end() &amp;lt;&amp;lt;">
+<meta name="twitter:title" content="椭圆方程实现渐进色平滑过渡">
+<meta name="twitter:description" content="有这么个需求，一张图片，上面需要显示文字，可是图片的颜色有可能是亮色，文字又是白色的话，会看不清楚内容。那么常见的解决方案就是用一个透明的黑色背景做底色，既能显示图片，又能衬托文字。 例如中间这张没加载出来的图: 新浪微博截图  这样的效果代码这么写就可以实现了 12345&amp;lt;LinearGradient colors=&amp;#123;[	&apos;rgba(0,0,0,0.4)&apos;,	&apos;rgba(0,0,">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/media/15296776808766/15296788901790.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/12/04/C++ 的一个奇怪问题/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/"/>
 
 
 
@@ -136,7 +141,7 @@
   };
 </script>
 
-  <title>初学 C++ 发现一个奇怪的问题 | heronlyj</title>
+  <title>椭圆方程实现渐进色平滑过渡 | heronlyj</title>
   
 
 
@@ -297,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/04/C++ 的一个奇怪问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Eugene Li">
@@ -314,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">初学 C++ 发现一个奇怪的问题
+          <h1 class="post-title" itemprop="name headline">椭圆方程实现渐进色平滑过渡
               
             
           </h1>
@@ -339,7 +344,7 @@
                 
               
 
-              <time title="Created: 2016-12-04 14:32:04 / Modified: 14:40:46" itemprop="dateCreated datePublished" datetime="2016-12-04T14:32:04+08:00">2016-12-04</time>
+              <time title="Created: 2018-06-23 00:34:23 / Modified: 00:35:14" itemprop="dateCreated datePublished" datetime="2018-06-23T00:34:23+08:00">2018-06-23</time>
             
 
             
@@ -376,10 +381,10 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/12/04/C++ 的一个奇怪问题/#comments" itemprop="discussionUrl">
+                <a href="/2018/06/23/elliptic-curve-linear-gradient/#comments" itemprop="discussionUrl">
                 
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/12/04/C++ 的一个奇怪问题/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/06/23/elliptic-curve-linear-gradient/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,21 +412,32 @@
       
 
       
-        <p>有这么一段 C++ 代码:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; s&#123;<span class="string">"aa"</span>, <span class="string">"bb"</span>&#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v&#123;<span class="string">"AA"</span>, <span class="string">"BB"</span>&#125;;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *s.end() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>终端输出为  </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AA</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>容器的迭代器方法 <code>s.end()</code> 返回的是 <code>AA</code>, 现在注释 <code>v</code> 的初始化:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; s&#123;<span class="string">"aa"</span>, <span class="string">"bb"</span>&#125;;</span><br><span class="line"><span class="comment">// vector&lt;string&gt; v&#123;"AA", "BB"&#125;;</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *s.end() &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 输出为 空</span></span><br></pre></td></tr></table></figure>
-<p>改为如下:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; s&#123;<span class="string">"aa"</span>, <span class="string">"bb"</span>, <span class="string">"cc"</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v&#123;<span class="string">"AA"</span>, <span class="string">"BB"</span>&#125;;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *s.end() &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 输出为 空</span></span><br></pre></td></tr></table></figure>
-<p>将 s 的个数增加为 4 个</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; s&#123;<span class="string">"aa"</span>, <span class="string">"bb"</span>, <span class="string">"cc"</span>, <span class="string">"dd"</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v&#123;<span class="string">"AA"</span>, <span class="string">"BB"</span>&#125;;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *s.end() &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 输出为 AA</span></span><br></pre></td></tr></table></figure>
-<p>是不是当 <code>s</code> 初始化成偶数个元素的时候，<code>s.end()</code> 返回的对象是 <code>v.begin()</code> ? 验证一下!</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; s&#123;<span class="string">"aa"</span>,<span class="string">"bb"</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v&#123;<span class="string">"AA"</span>&#125;;</span><br><span class="line"><span class="keyword">if</span> (s.end() == v.begin()) &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"=="</span> &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 输出 ==</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"!="</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>连续初始化两个容器, 第一个容器的元素个数为偶数的话, 两个容器的内存地址是连在一起的, 所以第一个容器的 <code>s.end()</code> 是第二个容器的<code>v.begin()</code></p>
-<p>可为什么是偶数个元素呢？</p>
+        <p>有这么个需求，一张图片，上面需要显示文字，可是图片的颜色有可能是亮色，文字又是白色的话，会看不清楚内容。那么常见的解决方案就是用一个透明的黑色背景做底色，既能显示图片，又能衬托文字。</p>
+<p>例如中间这张没加载出来的图:</p>
+<center><br><img src="media/15296776808766/15296788901790.jpg" width="40%"><br>新浪微博截图<br></center>
+
+<p>这样的效果代码这么写就可以实现了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;LinearGradient colors=&#123;[</span><br><span class="line">	<span class="string">'rgba(0,0,0,0.4)'</span>,</span><br><span class="line">	<span class="string">'rgba(0,0,0,0.1)'</span>,</span><br><span class="line">	<span class="string">'rgba(0,0,0,0.4)'</span></span><br><span class="line">]&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<p>可是有没有其他的方案呢，我只需要底部显示文字，尽量多的把图片的原色展现出来。如果用一个坐标系来表示的话就是这样</p>
+<center><br><img src="media/15296776808766/22961529681017_.pic.jpg" width="60%"><br></center>
+
+<p>x 轴表示距离顶部的距离, y 轴表示透明度 alpha，alpha 越大越不透明。那么这个曲线最容易想到的就是椭圆曲线了，我们可以截取椭圆的四分之一。</p>
+<center><br><img src="media/15296776808766/23181529681603_.pic.jpg" width="60%"><br></center>
+
+<p>假设我需要文字部分的透明度最终到 <code>alpha</code>, 那么根据中心点为原点的椭圆方程</p>
+<p>$$ \dfrac{x^2}{a^2} + \dfrac{y^2}{(alpha)^2} = 1 $$</p>
+<p>得出取得向上平移 <code>alpha</code> 的四分之一椭圆曲线为</p>
+<p>$$ y = alpha - \dfrac{alpla}{a} \vert {\sqrt{a^2 - x^2}} \vert  $$</p>
+<p>那么只要将椭圆的长边设置一个相对大的值，使得椭圆足够扁就行了，假设这里取值 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = 10</span><br><span class="line">alpha = 0.6</span><br></pre></td></tr></table></figure>
+<p>$$ y = 0.6 - \dfrac{0.6}{10} \vert {\sqrt{10^2 - x^2}} \vert  $$</p>
+<p>上代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Gradients = <span class="function">(<span class="params">(</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="number">10</span></span><br><span class="line">    <span class="keyword">const</span> alpha = <span class="number">0.6</span></span><br><span class="line">    <span class="keyword">let</span> result = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= <span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> x = (a/<span class="number">100</span>) * i</span><br><span class="line">        <span class="keyword">const</span> y = alpha - (alpha/a)*<span class="built_in">Math</span>.abs(<span class="built_in">Math</span>.sqrt(a*a - x*x))</span><br><span class="line">        result.push(<span class="string">`rgba(0,0,0,<span class="subst">$&#123;y&#125;</span>)`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>取出曲线中的 <code>100</code> 等分的点，生成一个 <code>rgba</code> 的数组, 这样的渐进色效果如下:</p>
+<center><br><img src="media/15296776808766/15296849246909.jpg" width="60%"><br></center>
+
+<hr>
+<p>嗯，饿了。。。</p>
 
       
     </div>
@@ -442,7 +458,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"># C++</a>
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
           
         </div>
       
@@ -455,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/22/simple-kvo-tool-in-swift/" rel="next" title="Swift 中一个简单的 KVO 小工具">
-                <i class="fa fa-chevron-left"></i> Swift 中一个简单的 KVO 小工具
+              <a href="/2018/06/12/open shadowsocks/" rel="next" title="四行命令开启 shadowsocks">
+                <i class="fa fa-chevron-left"></i> 四行命令开启 shadowsocks
               </a>
             
           </div>
@@ -464,10 +480,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/12/open shadowsocks/" rel="prev" title="四行命令开启 shadowsocks">
-                四行命令开启 shadowsocks <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -777,9 +789,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'http://yoursite.com/2016/12/04/C++ 的一个奇怪问题/';
-        this.page.identifier = '2016/12/04/C++ 的一个奇怪问题/';
-        this.page.title = '初学 C++ 发现一个奇怪的问题';
+        this.page.url = 'http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/';
+        this.page.identifier = '2018/06/23/elliptic-curve-linear-gradient/';
+        this.page.title = '椭圆方程实现渐进色平滑过渡';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');

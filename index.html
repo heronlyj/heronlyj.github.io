@@ -293,6 +293,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/elliptic-curve-linear-gradient/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eugene Li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="heronlyj">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/23/elliptic-curve-linear-gradient/" itemprop="url">
+                  椭圆方程实现渐进色平滑过渡
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-23 00:34:23 / Modified: 00:35:14" itemprop="dateCreated datePublished" datetime="2018-06-23T00:34:23+08:00">2018-06-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/23/elliptic-curve-linear-gradient/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/23/elliptic-curve-linear-gradient/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有这么个需求，一张图片，上面需要显示文字，可是图片的颜色有可能是亮色，文字又是白色的话，会看不清楚内容。那么常见的解决方案就是用一个透明的黑色背景做底色，既能显示图片，又能衬托文字。</p>
+<p>例如中间这张没加载出来的图:</p>
+<center><br><img src="media/15296776808766/15296788901790.jpg" width="40%"><br>新浪微博截图<br></center>
+
+<p>这样的效果代码这么写就可以实现了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;LinearGradient colors=&#123;[</span><br><span class="line">	<span class="string">'rgba(0,0,0,0.4)'</span>,</span><br><span class="line">	<span class="string">'rgba(0,0,0,0.1)'</span>,</span><br><span class="line">	<span class="string">'rgba(0,0,0,0.4)'</span></span><br><span class="line">]&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<p>可是有没有其他的方案呢，我只需要底部显示文字，尽量多的把图片的原色展现出来。如果用一个坐标系来表示的话就是这样</p>
+<center><br><img src="media/15296776808766/22961529681017_.pic.jpg" width="60%"><br></center>
+
+<p>x 轴表示距离顶部的距离, y 轴表示透明度 alpha，alpha 越大越不透明。那么这个曲线最容易想到的就是椭圆曲线了，我们可以截取椭圆的四分之一。</p>
+<center><br><img src="media/15296776808766/23181529681603_.pic.jpg" width="60%"><br></center>
+
+<p>假设我需要文字部分的透明度最终到 <code>alpha</code>, 那么根据中心点为原点的椭圆方程</p>
+<p>$$ \dfrac{x^2}{a^2} + \dfrac{y^2}{(alpha)^2} = 1 $$</p>
+<p>得出取得向上平移 <code>alpha</code> 的四分之一椭圆曲线为</p>
+<p>$$ y = alpha - \dfrac{alpla}{a} \vert {\sqrt{a^2 - x^2}} \vert  $$</p>
+<p>那么只要将椭圆的长边设置一个相对大的值，使得椭圆足够扁就行了，假设这里取值 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = 10</span><br><span class="line">alpha = 0.6</span><br></pre></td></tr></table></figure>
+<p>$$ y = 0.6 - \dfrac{0.6}{10} \vert {\sqrt{10^2 - x^2}} \vert  $$</p>
+<p>上代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Gradients = <span class="function">(<span class="params">(</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="number">10</span></span><br><span class="line">    <span class="keyword">const</span> alpha = <span class="number">0.6</span></span><br><span class="line">    <span class="keyword">let</span> result = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= <span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> x = (a/<span class="number">100</span>) * i</span><br><span class="line">        <span class="keyword">const</span> y = alpha - (alpha/a)*<span class="built_in">Math</span>.abs(<span class="built_in">Math</span>.sqrt(a*a - x*x))</span><br><span class="line">        result.push(<span class="string">`rgba(0,0,0,<span class="subst">$&#123;y&#125;</span>)`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>取出曲线中的 <code>100</code> 等分的点，生成一个 <code>rgba</code> 的数组, 这样的渐进色效果如下:</p>
+<center><br><img src="media/15296776808766/15296849246909.jpg" width="60%"><br></center>
+
+<hr>
+<p>嗯，饿了。。。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/open shadowsocks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1433,7 +1628,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1479,7 +1674,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
