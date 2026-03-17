@@ -119,9 +119,22 @@
     font-size: 0.98rem;
   }
 
+  .VPDoc {
+    padding: 0;
+  }
+
+  .VPDoc .container,
+  .VPDoc .content-container,
+  .VPDoc.has-aside .content-container {
+    max-width: 100%;
+  }
+
   .VPDoc .main {
-    border-radius: 18px;
-    padding: 18px 16px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 8px 2px 20px;
   }
 
   .vp-doc h1 {
@@ -132,5 +145,18 @@
   .vp-doc li {
     font-size: 15px;
     line-height: 1.82;
+  }
+
+  .vp-doc blockquote {
+    padding: 10px 12px;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .VPLocalNav,
+  .VPDocAside {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
