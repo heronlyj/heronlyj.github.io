@@ -4,11 +4,7 @@ layout: home
 hero:
   name: heronlyj
   text: 研究与指南
-  tagline: 把真正还有参考价值的内容慢慢收回来，先从一篇像样的文章开始。
-  actions:
-    - theme: brand
-      text: 查看文章
-      link: /guide/shenzhen-nanshan-primary-2025
+  tagline: 把值得留下来的内容，慢慢整理成清楚、耐看的中文文章。
 ---
 
 ## 文章
