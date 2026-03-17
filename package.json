@@ -1,0 +1,10 @@
+{
+  "name": "heronlyj-github-pages",
+  "private": true,
+  "scripts": {
+    "docs:build": "vitepress build site-src"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}

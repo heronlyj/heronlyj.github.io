@@ -1,5 +1,6 @@
 # heronlyj.github.io
 
-Built with VitePress. Static output is committed to the repository root for GitHub Pages serving.
+Static site for GitHub Pages.
 
-Source content is stored under `site-src/`.
+- Source: `site-src/`
+- Published output: repository root

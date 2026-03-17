@@ -6,4 +6,4 @@
 
 ## 当前内容
 
-- [2025 年深圳南山区小学指南](/guide/shenzhen-nanshan-primary-2025)
+- [2025 年深圳南山区小学指南](/guide/shenzhen-nanshan-primary-2025.html)
