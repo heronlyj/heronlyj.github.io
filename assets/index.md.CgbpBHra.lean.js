@@ -1,1 +1,0 @@
-import{_ as a,o as r,c as t,ae as n}from"./chunks/framework.EHGTsUvI.js";const p=JSON.parse('{"title":"heronlyj","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),o={name:"index.md"};function i(l,e,s,d,h,_){return r(),t("div",null,[...e[0]||(e[0]=[n("",5)])])}const m=a(o,[["render",i]]);export{p as __pageData,m as default};
