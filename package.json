@@ -2,7 +2,8 @@
   "name": "heronlyj-github-pages",
   "private": true,
   "scripts": {
-    "docs:build": "vitepress build site-src"
+    "docs:build": "npx vitepress build site-src",
+    "publish:pages": "node scripts/publish-pages.mjs"
   },
   "devDependencies": {
     "vitepress": "^1.6.4"
