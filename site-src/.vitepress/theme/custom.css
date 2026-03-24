@@ -1,4 +1,5 @@
 :root {
+  /* 亮色主题 */
   --vp-c-brand-1: #1f4b3f;
   --vp-c-brand-2: #2f6758;
   --vp-c-brand-3: #4b8270;
@@ -110,6 +111,121 @@
   text-underline-offset: 3px;
 }
 
+/* ========== 暗黑模式 ========== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vp-c-brand-1: #6db58e;
+    --vp-c-brand-2: #5aa47c;
+    --vp-c-brand-3: #4b9370;
+    --vp-c-brand-soft: rgba(109, 181, 142, 0.16);
+    --vp-home-hero-name-color: #e8efe9;
+    --vp-home-hero-image-background-image: radial-gradient(circle at 50% 20%, rgba(109,181,142,.12), rgba(109,181,142,0) 65%);
+  }
+
+  .VPContent {
+    background:
+      radial-gradient(circle at top, rgba(109, 181, 142, 0.06), transparent 35%),
+      linear-gradient(180deg, #1a1c1b 0%, #141615 100%);
+  }
+
+  .VPNav {
+    background: rgba(26, 28, 27, 0.82) !important;
+  }
+
+  .VPHero .name,
+  .VPHero .text {
+    color: #e8efe9;
+    letter-spacing: -0.02em;
+  }
+
+  .VPHero .text {
+    font-size: 2.6rem;
+    line-height: 1.15;
+  }
+
+  .VPHero .tagline {
+    color: rgba(232, 239, 233, 0.72);
+    max-width: 720px;
+    font-size: 1.05rem;
+  }
+
+  .VPDoc .content-container,
+  .VPDoc.has-aside .content-container {
+    max-width: 900px; /* 暗黑模式下放宽宽度 */
+  }
+
+  .VPDoc .main {
+    background: rgba(30, 32, 30, 0.82);
+    border: 1px solid rgba(109, 181, 142, 0.12);
+    border-radius: 28px;
+    padding: 32px 34px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+  }
+
+  .vp-doc h1 {
+    color: #e8efe9;
+    font-size: 2.15rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .vp-doc h2 {
+    color: #e8efe9;
+    margin-top: 2.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(109, 181, 142, 0.16);
+  }
+
+  .vp-doc h3 {
+    color: #e8efe9;
+    margin-top: 1.4rem;
+  }
+
+  .vp-doc p,
+  .vp-doc li {
+    color: #c8d3cc;
+    font-size: 15.5px;
+    line-height: 1.9;
+  }
+
+  .vp-doc blockquote {
+    border-left: 4px solid var(--vp-c-brand-1);
+    background: rgba(109, 181, 142, 0.1);
+    border-radius: 0 14px 14px 0;
+    padding: 12px 16px;
+  }
+
+  .vp-doc table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .vp-doc th {
+    background: rgba(109, 181, 142, 0.12);
+    color: #e8efe9;
+  }
+
+  .vp-doc th,
+  .vp-doc td {
+    min-width: 120px;
+    color: #c8d3cc;
+  }
+
+  .vp-doc a {
+    color: #6db58e;
+    text-underline-offset: 3px;
+  }
+
+  .vp-doc code {
+    background: rgba(109, 181, 142, 0.15);
+    color: #a8d4be;
+  }
+}
+
+/* ========== 移动端适配 ========== */
 @media (max-width: 768px) {
   .VPHero .text {
     font-size: 2rem;
@@ -158,5 +274,42 @@
   .VPDocAside {
     padding-left: 0;
     padding-right: 0;
+  }
+}
+
+/* ========== 暗黑模式移动端 ========== */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .VPHero .name,
+  .VPHero .text {
+    color: #e8efe9;
+  }
+
+  .VPHero .tagline {
+    color: rgba(232, 239, 233, 0.72);
+  }
+
+  .VPDoc .main {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 8px 2px 20px;
+  }
+
+  .vp-doc h1,
+  .vp-doc h2,
+  .vp-doc h3 {
+    color: #e8efe9;
+  }
+
+  .vp-doc p,
+  .vp-doc li,
+  .vp-doc th,
+  .vp-doc td {
+    color: #c8d3cc;
+  }
+
+  .vp-doc a {
+    color: #6db58e;
   }
 }
