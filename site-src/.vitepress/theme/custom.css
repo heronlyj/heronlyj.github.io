@@ -1,11 +1,32 @@
-/* 保留少量品牌色自定义，其他交给 VitePress 官方暗色主题 */
+/* 品牌色自定义 */
 :root {
   --vp-c-brand-1: #1f4b3f;
   --vp-c-brand-2: #2f6758;
   --vp-c-brand-3: #4b8270;
 }
 
-/* 移动端适配 */
+/* PC端宽度放宽，手机端保持默认 */
+@media (min-width: 1024px) {
+  .VPDoc .content-container,
+  .VPDoc.has-aside .content-container {
+    max-width: 960px;
+  }
+
+  .VPDoc .main {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+}
+
+/* 平板端 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .VPDoc .content-container,
+  .VPDoc.has-aside .content-container {
+    max-width: 800px;
+  }
+}
+
+/* 手机端保持原状 */
 @media (max-width: 768px) {
   .VPHero .text {
     font-size: 1.8rem;
