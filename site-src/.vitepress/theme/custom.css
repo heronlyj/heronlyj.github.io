@@ -5,13 +5,21 @@
   --vp-c-brand-3: #4b8270;
 }
 
-/* PC端宽度放宽，手机端保持默认 */
+/* 详情页内容宽度 - PC端 */
 @media (min-width: 1024px) {
+  /* 文档内容区域 */
+  .vp-doc,
+  .VPDoc .container {
+    max-width: 1200px !important;
+  }
+
+  /* 侧边栏内容区域 */
   .VPDoc .content-container,
   .VPDoc.has-aside .content-container {
     max-width: 1200px;
   }
 
+  /* 主体区域 */
   .VPDoc .main {
     max-width: 1200px;
     margin: 0 auto;
@@ -20,9 +28,9 @@
 
 /* 平板端 */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .VPDoc .content-container,
-  .VPDoc.has-aside .content-container {
-    max-width: 800px;
+  .vp-doc,
+  .VPDoc .container {
+    max-width: 800px !important;
   }
 }
 
